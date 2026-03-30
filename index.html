@@ -75,14 +75,14 @@
           <label>Email Address</label>
           <div class="field-inner">
             <i class="fas fa-envelope"></i>
-            <input type="email" id="loginEmail" placeholder="you@example.com"/>
+            <input type="text" id="loginEmail" placeholder="you@example.com" autocomplete="email" onkeydown="if(event.key==='Enter')handleLogin()"/>
           </div>
         </div>
         <div class="field">
           <label>Password</label>
           <div class="field-inner">
             <i class="fas fa-lock"></i>
-            <input type="password" id="loginPassword" placeholder="Your password"/>
+            <input type="password" id="loginPassword" placeholder="Your password" onkeydown="if(event.key==='Enter')handleLogin()"/>
             <button class="eye-btn" onclick="togglePw('loginPassword',this)"><i class="fas fa-eye"></i></button>
           </div>
         </div>
@@ -138,7 +138,7 @@
           <label>Email Address *</label>
           <div class="field-inner">
             <i class="fas fa-envelope"></i>
-            <input type="email" id="regEmail" placeholder="you@example.com"/>
+            <input type="text" id="regEmail" placeholder="you@example.com" autocomplete="email"/>
           </div>
         </div>
         <div class="field">
@@ -176,7 +176,7 @@
           <label>Security Answer <span class="hint">(favourite dish — for password reset)</span></label>
           <div class="field-inner">
             <i class="fas fa-utensils"></i>
-            <input type="text" id="regAnswer" placeholder="e.g. Biryani"/>
+            <input type="text" id="regAnswer" placeholder="e.g. Biryani" onkeydown="if(event.key==='Enter')handleRegister()"/>
           </div>
         </div>
         <button class="btn-gold full" id="registerBtn" onclick="handleRegister()">
