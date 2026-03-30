@@ -68,13 +68,19 @@ function goBack() {
 }
 
 async function handleLogin() {
-  const email    = val('loginEmail');
-  const password = val('loginPassword');
-  const msgEl    = document.getElementById('loginMsg');
-  const btn      = document.getElementById('loginBtn');
+  const emailEl    = document.getElementById('loginEmail');
+  const passwordEl = document.getElementById('loginPassword');
+  const msgEl      = document.getElementById('loginMsg');
+  const btn        = document.getElementById('loginBtn');
+
+  const email    = (emailEl?.value    || '').trim();
+  const password = (passwordEl?.value || '').trim();
 
   hideMsg(msgEl);
-  if (!email || !password) { showMsg(msgEl, '⚠ Please enter email and password.'); return; }
+
+  if (!email && !password) { showMsg(msgEl, '⚠ Please enter your email and password.'); return; }
+  if (!email)              { showMsg(msgEl, '⚠ Please enter your email address.'); return; }
+  if (!password)           { showMsg(msgEl, '⚠ Please enter your password.'); return; }
 
   btn.classList.add('btn-loading');
   btn.textContent = 'Signing in…';
@@ -96,31 +102,41 @@ async function handleLogin() {
 }
 
 async function handleRegister() {
-  const name     = val('regName');
-  const email    = val('regEmail');
-  const password = val('regPassword');
-  const phone    = val('regPhone');
-  const address  = val('regAddress');
-  const city     = val('regCity');
-  const country  = val('regCountry') || 'India';
-  const answer   = val('regAnswer');
-  const msgEl    = document.getElementById('registerMsg');
-  const btn      = document.getElementById('registerBtn');
+  const nameEl     = document.getElementById('regName');
+  const emailEl    = document.getElementById('regEmail');
+  const passwordEl = document.getElementById('regPassword');
+  const phoneEl    = document.getElementById('regPhone');
+  const addressEl  = document.getElementById('regAddress');
+  const cityEl     = document.getElementById('regCity');
+  const countryEl  = document.getElementById('regCountry');
+  const answerEl   = document.getElementById('regAnswer');
+  const msgEl      = document.getElementById('registerMsg');
+  const btn        = document.getElementById('registerBtn');
+
+  const name     = (nameEl?.value     || '').trim();
+  const email    = (emailEl?.value    || '').trim();
+  const password = (passwordEl?.value || '').trim();
+  const phone    = (phoneEl?.value    || '').trim();
+  const address  = (addressEl?.value  || '').trim();
+  const city     = (cityEl?.value     || '').trim();
+  const country  = (countryEl?.value  || '').trim() || 'India';
+  const answer   = (answerEl?.value   || '').trim() || 'default';
 
   hideMsg(msgEl);
 
-  if (!name || !email || !password || !phone || !address || !city) {
-    showMsg(msgEl, '⚠ Please fill in all required fields.'); return;
-  }
-  if (password.length < 6) {
-    showMsg(msgEl, '⚠ Password must be at least 6 characters.'); return;
-  }
+  if (!name)     { showMsg(msgEl, '⚠ Please enter your full name.');      return; }
+  if (!email)    { showMsg(msgEl, '⚠ Please enter your email address.');   return; }
+  if (!password) { showMsg(msgEl, '⚠ Please enter a password.');           return; }
+  if (!phone)    { showMsg(msgEl, '⚠ Please enter your phone number.');    return; }
+  if (!address)  { showMsg(msgEl, '⚠ Please enter your address.');         return; }
+  if (!city)     { showMsg(msgEl, '⚠ Please enter your city.');            return; }
+  if (password.length < 6) { showMsg(msgEl, '⚠ Password must be at least 6 characters.'); return; }
 
   btn.classList.add('btn-loading');
   btn.textContent = 'Creating account…';
 
   try {
-    await post(`${API}/user/register`, { name, email, password, phone, address, city, answer: 'default' });
+    await post(`${API}/user/register`, { name, email, password, phone, address, city, country, answer });
     showMsg(msgEl, '✓ Account created! Redirecting to login…', 'ok');
     setTimeout(() => navigate('login'), 1800);
   } catch (e) {
