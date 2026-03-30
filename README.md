@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ◆ ShopLux — E-Commerce REST API
 
 A production-ready Node.js/Express REST API for an e-commerce platform with JWT auth, Cloudinary image uploads, Stripe payments, and MongoDB.
@@ -123,3 +124,6 @@ shoplux/
 ├── render.yaml             # Render deployment config
 └── .gitignore
 ```
+=======
+# ecommerse_platform
+>>>>>>> 628953f46627e22e0c2c110d3d2889926d085696
